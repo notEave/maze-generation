@@ -1,22 +1,22 @@
 {
-  "name": "asteroid-defender",
+  "name": "maze-generation",
   "version": "1.0.0",
   "description": "",
-  "main": "index.js",
+  "main": "bundle.js",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1"
   },
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/notEave/asteroid-defender.git"
+    "url": "git+https://github.com/notEave/maze-generation.git"
   },
   "keywords": [],
   "author": "",
   "license": "ISC",
   "bugs": {
-    "url": "https://github.com/notEave/asteroid-defender/issues"
+    "url": "https://github.com/notEave/maze-generation/issues"
   },
-  "homepage": "https://github.com/notEave/asteroid-defender#readme",
+  "homepage": "https://github.com/notEave/maze-generation#readme",
   "dependencies": {
     "@types/node": "^7.0.18",
     "browserify": "^14.3.0",

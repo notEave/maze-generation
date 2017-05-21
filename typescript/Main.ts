@@ -15,9 +15,9 @@ class Main {
 }
 
 
-let m:Maze = new Maze(new Integer(64), new Integer(64));
+let m:Maze = new Maze(new Integer(128), new Integer(128));
 let mp:MazePather = new MazePather(m);
-mp.setStart(new Integer(32), new Integer(32));
+mp.setStart(new Integer(64), new Integer(64));
 let c:Canvas = new Canvas(document.getElementsByTagName('canvas')[0], new Point(640, 640));
 let md:MazeDrawer = new MazeDrawer(mp, c.getContext());
 // window.setInterval(Main.main, 2000);

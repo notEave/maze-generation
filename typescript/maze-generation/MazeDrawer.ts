@@ -22,6 +22,6 @@ export class MazeDrawer {
       /*alpha = (totalSize - stack.length().get()) / totalSize;
       this.ctx.fillStyle = `rgba(0,0,0,${alpha})`;*/
     let current:Cell = stack.peek();
-    this.ctx.fillRect(current.getX().get() * 10, current.getY().get() * 10, 10, 10);
+    this.ctx.fillRect(current.getX().get() * 5, current.getY().get() * 5, 5, 5);
   }
 }
