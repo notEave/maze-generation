@@ -1,5 +1,4 @@
 import { Integer } from '../datatypes/Integer';
-
 import { Collection } from './Collection';
 
 export class Stack<T> implements Collection<T> {

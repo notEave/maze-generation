@@ -7,7 +7,7 @@ import { MazeDrawer } from './maze-generation/MazeDrawer';
 
 class Main {
   static main():void {
-    // c.clear();
+    c.clear();
     mp.iterate();
     md.drawPixels();
     requestAnimationFrame(Main.main);

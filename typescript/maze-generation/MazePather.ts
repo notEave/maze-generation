@@ -118,7 +118,7 @@ export class MazePather {
     return this.current;
   }
 
-  public getstack():Stack<Cell> {
+  public getStack():Stack<Cell> {
     return this.stack;
   }
 }
