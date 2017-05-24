@@ -1,3 +1,5 @@
+// DEPRECATED
+
 import { NaNError } from '../error/number/NaNError';
 import { PositiveInfinityError } from '../error/number/PositiveInfinityError';
 import { NegativeInfinityError } from '../error/number/NegativeInfinityError';

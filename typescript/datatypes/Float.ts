@@ -1,3 +1,5 @@
+// DEPRECATED
+
 import { NumberC } from './NumberC';
 
 export class Float extends NumberC {

@@ -1,3 +1,5 @@
+// DEPRECATED
+
 import { NotAnIntegerError } from '../error/number/NotAnIntegerError';
 import { NumberC } from './NumberC';
 

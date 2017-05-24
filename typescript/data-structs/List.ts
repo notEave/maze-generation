@@ -1,5 +1,5 @@
-import { Integer } from '../datatypes/Integer';
 import { Collection } from './Collection';
+import { int } from './Cast';
 
 export class List<T> implements Collection<T> {
   private readonly collection:T[];
@@ -12,18 +12,18 @@ export class List<T> implements Collection<T> {
     this.collection.push(value);
   }
 
-  public peek(index:Integer):T {
-    return this.collection[index.get()];
+  public peek(index:number):T {
+    return this.collection[int(index)];
   }
 
-  public pop(index:Integer):T {
+  public pop(index:number):T {
     let v:T = this.peek(index);
-    this.collection.splice(index.get(), 1);
+    this.collection.splice(int(index), 1);
     return v;
   }
 
-  public length():Integer {
-    return new Integer(this.collection.length);
+  public length():number {
+    return this.collection.length;
   }
 
   public clone():List<T> {

@@ -1,4 +1,3 @@
-import { Integer } from '../datatypes/Integer';
 import { Collection } from './Collection';
 
 export class Stack<T> implements Collection<T> {
@@ -22,8 +21,8 @@ export class Stack<T> implements Collection<T> {
     return v;
   }
 
-  public length():Integer {
-    return new Integer(this.collection.length);
+  public length():number {
+    return this.collection.length;
   }
 
   public clone():Stack<T> {

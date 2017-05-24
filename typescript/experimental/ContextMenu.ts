@@ -73,6 +73,7 @@ export class ContextMenu {
     this.canvas.getContext().fillStyle = 'white';
 
     this.canvas.getContext().fillRect(this.mouse.getLocalPosition().getX(), this.mouse.getLocalPosition().getY(), 1, 1);
+    console.log(this.options.peek(new Integer(0)));
     this.options.peek(new Integer(0)).draw();
   }
 }

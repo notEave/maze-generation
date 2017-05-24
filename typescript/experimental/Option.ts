@@ -20,6 +20,9 @@ export class Option {
   }
 
   public draw():void {
+    console.log('you are here');
+    // this.ctx.font = '30px sans-serif';
+    this.ctx.fillStyle = 'black';
     this.ctx.fillText(this.text, 10, 50);
   }
 }
