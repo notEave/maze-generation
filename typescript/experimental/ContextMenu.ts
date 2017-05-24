@@ -29,7 +29,16 @@ export class ContextMenu {
   }
 
   public width():Integer {
-    return new Integer(300.0);
+    let i:Integer;
+    let longest:Float = new Float(0);
+
+    for(i = new Integer(0); i.get() < this.options.length().get(); i.postIncrement()) {
+      if(this.options.peek(i).length().get() > longest.get()) {
+        longest = this.options.peek(i).length();
+      }
+    }
+
+    return new Integer(Math.ceil(longest.get()));
   }
 
   public height():Integer {
@@ -64,5 +73,6 @@ export class ContextMenu {
     this.canvas.getContext().fillStyle = 'white';
 
     this.canvas.getContext().fillRect(this.mouse.getLocalPosition().getX(), this.mouse.getLocalPosition().getY(), 1, 1);
+    this.options.peek(new Integer(0)).draw();
   }
 }

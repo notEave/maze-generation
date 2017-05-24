@@ -23,10 +23,12 @@ class Main {
     if(htm === null) {
       return;
     }
+    let ctx:CanvasRenderingContext2D = c.getContext();
+
     let mou:Mouse = new Mouse(htm, false);
 
     ctm = new ContextMenu(new Point(100, 100), c, mou);
-    let o:Option = new Option('testivalinta', function():void {console.log('minua kutsuttiin')});
+    let o:Option = new Option('testivalinta', function():void {console.log('minua kutsuttiin')}, ctx);
 
     ctm.addOption(o);
 
@@ -37,6 +39,7 @@ class Main {
     c.clear();
     ctm.mouseInsideMenu();
     ctm.draw();
+    console.log(ctm.length().get());
     window.requestAnimationFrame(Main.test);
   }
 
