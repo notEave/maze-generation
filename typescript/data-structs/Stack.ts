@@ -2,37 +2,37 @@ import { Integer } from '../datatypes/Integer';
 import { Collection } from './Collection';
 
 export class Stack<T> implements Collection<T> {
-  private readonly stack:T[];
+  private readonly collection:T[];
 
   public constructor() {
-    this.stack = [] as T[];
+    this.collection = [] as T[];
   }
 
   public put(value:T):void {
-    this.stack.push(value);
+    this.collection.push(value);
   }
 
   public peek():T {
-    return this.stack[this.stack.length - 1];
+    return this.collection[this.collection.length - 1];
   }
 
   public pop():T {
     let v:T = this.peek();
-    this.stack.pop();
+    this.collection.pop();
     return v;
   }
 
   public length():Integer {
-    return new Integer(this.stack.length);
+    return new Integer(this.collection.length);
   }
 
   public clone():Stack<T> {
-    let stack:Stack<T> = new Stack<T>();
-    this.toArray().forEach(v => stack.put(v));
-    return stack;
+    let collection:Stack<T> = new Stack<T>();
+    this.toArray().forEach(v => collection.put(v));
+    return collection;
   }
 
   public toArray():T[] {
-    return this.stack.slice();
+    return this.collection.slice();
   }
 }

@@ -2,7 +2,7 @@ import { Integer } from '../datatypes/Integer';
 
 export interface Collection<T> {
   put(value:T):void;
-  pop():T;
-  peek():T;
+  pop(index?:Integer):T;
+  peek(index?:Integer):T;
   length():Integer;
 }
