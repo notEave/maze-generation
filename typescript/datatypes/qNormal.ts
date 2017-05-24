@@ -1,14 +1,13 @@
 import { MinValueExceededError } from '../error/number/MinValueExceededError';
 import { MaxValueExceededError } from '../error/number/MaxValueExceededError';
 
-import { NumberC } from './NumberC';
-import { Float } from './Float';
+import { NumberC } from './qNumberC';
 
 export class Normal extends NumberC {
 
   // STATIC
-  public static readonly MIN_VALUE:number = new Float(0.0).get();
-  public static readonly MAX_VALUE:number = new Float(1.0).get();
+  public static readonly MIN_VALUE:number = 0.0;
+  public static readonly MAX_VALUE:number = 1.0;
 
   // INSTANCE
 

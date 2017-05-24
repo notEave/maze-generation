@@ -1,6 +1,6 @@
 // DEPRECATED
 
-import { NumberC } from './NumberC';
+import { NumberC } from './qNumberC';
 
 export class Float extends NumberC {
 

@@ -1,71 +1,66 @@
-import { ColorChannel } from './ColorChannel';
-import { Normal } from './Normal';
-import { NaNError } from '../error/NaNError';
-import { StringC } from './StringC';
+import { StringC }              from './StringC';
 import { IllegalArgumentError } from '../error/IllegalArgumentError';
+import { normal }               from '../datastructs/Cast';
+
+import { ColorChannel }         from './ColorChannel';
 
 export class Color {
   private static readonly RGB_MULT:number   = 255.0;
   private static readonly ALPHA_MULT:number =   1.0;
 
-  private readonly red  :Normal;
-  private readonly green:Normal;
-  private readonly blue :Normal;
-  private readonly alpha:Normal;
+  private red  :number;
+  private green:number;
+  private blue :number;
+  private alpha:number;
 
   constructor(red:number, green:number, blue:number, alpha?:number) {
-    this.red   = new Normal(Normal.MAX_VALUE, Color.RGB_MULT);
-    this.green = new Normal(Normal.MAX_VALUE, Color.RGB_MULT);
-    this.blue  = new Normal(Normal.MAX_VALUE, Color.RGB_MULT);
-    this.alpha = new Normal(Normal.MAX_VALUE, Color.ALPHA_MULT);
+    this.red   = normal(red);
+    this.green = normal(green);
+    this.blue  = normal(blue);
 
-    this.red  .setValue(red);
-    this.green.setValue(green);
-    this.blue .setValue(blue);
-    if(alpha !== undefined)
-      this.alpha.setValue(alpha);
+    if(alpha !== undefined) {
+      this.alpha = normal(alpha);
+    } else {
+      this.alpha = 1.0;
+    }
   }
 
   public setChannel(channel:ColorChannel, value:number):void {
     switch(channel) {
     case ColorChannel.RED:
-      this.red.setValue(value);
-      break;
+      this.red   = normal(value); break;
     case ColorChannel.GREEN:
-      this.green.setValue(value);
-      break;
+      this.green = normal(value); break;
     case ColorChannel.BLUE:
-      this.blue.setValue(value);
-      break;
+      this.blue  = normal(value); break;
     case ColorChannel.ALPHA:
-      this.alpha.setValue(value);
-      break;
+      this.alpha = normal(value); break;
     }
   }
 
   public getChannel(channel:ColorChannel):number {
     switch(channel) {
-    case ColorChannel  .RED: return this.red  .getScaled();
-    case ColorChannel.GREEN: return this.green.getScaled();
-    case ColorChannel .BLUE: return this.blue .getScaled();
-    case ColorChannel.ALPHA: return this.alpha.getScaled();
+    case ColorChannel  .RED: return this.red  ;
+    case ColorChannel.GREEN: return this.green;
+    case ColorChannel .BLUE: return this.blue ;
+    case ColorChannel.ALPHA: return this.alpha;
     }
   }
 
-  private getIntegerValues():number[] {
-    const RED  :number = Math.round(this.getChannel(ColorChannel.RED  ));
-    const GREEN:number = Math.round(this.getChannel(ColorChannel.GREEN));
-    const BLUE :number = Math.round(this.getChannel(ColorChannel.BLUE ));
-    const ALPHA:number = Math.round(this.getChannel(ColorChannel.ALPHA));
-
+  private getRrgbValues():number[] {
+    const RED  :number = Math.round(this.red   * Color.RGB_MULT);
+    const GREEN:number = Math.round(this.green * Color.RGB_MULT);
+    const BLUE :number = Math.round(this.blue  * Color.RGB_MULT);
+    const ALPHA:number = this.alpha;
     return [RED, GREEN, BLUE, ALPHA];
   }
 
   public static fromHex(hex:string):Color {
     const HEX_COLOR:RegExp = /^#[0-9a-f]{6}$/gi;
 
-    if(!StringC.contains(hex, HEX_COLOR))
+    if(!StringC.contains(hex, HEX_COLOR)) {
       throw new IllegalArgumentError();
+    }
 
     const RED  :number = StringC.parseHex(hex.substr(1, 2)) / Color.RGB_MULT;
     const GREEN:number = StringC.parseHex(hex.substr(3, 2)) / Color.RGB_MULT;
@@ -75,7 +70,7 @@ export class Color {
   }
 
   public toRgb():string {
-    const VALUES:number[] = this.getIntegerValues();
+    const VALUES:number[] = this.getRrgbValues();
 
     return 'rgb(' +
       VALUES[ColorChannel  .RED] + ',' +
@@ -85,7 +80,7 @@ export class Color {
   }
 
   public toRgba():string {
-    const VALUES:number[] = this.getIntegerValues();
+    const VALUES:number[] = this.getRrgbValues();
 
     return 'rgba(' +
       VALUES[ColorChannel  .RED] + ',' +

@@ -1,7 +1,7 @@
-import { NaNError } from '../error/NaNError';
+import { double } from '../datastructs/Cast';
 
 export class Point {
-  
+
   // STATIC
 
   // INSTANCE
@@ -10,10 +10,8 @@ export class Point {
 
   // CONSTRUCTOR
   public constructor(x:number, y:number) {
-    if(isNaN(x) || isNaN(y))
-      throw new NaNError();
-    this.x = x;
-    this.y = y;
+    this.x = double(x);
+    this.y = double(y);
   }
 
   // PUBLIC
@@ -27,15 +25,11 @@ export class Point {
 
   // SETTER
   public setX(x:number):void {
-    if(isNaN(x))
-    throw new NaNError();
-    this.x = x;
+    this.x = double(x);
   }
 
   public setY(y:number):void {
-    if(isNaN(y))
-    throw new NaNError();
-    this.y = y;
+    this.y = double(y);
   }
 
   // GETTER

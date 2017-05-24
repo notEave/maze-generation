@@ -12,7 +12,7 @@ export class Time {
   private drawStart:number;
   private drawEnd:number;
 
-  constructor() {
+  public constructor() {
     this.start = Time.highResolutionTime();
     this.currentFrame = 0;
   }

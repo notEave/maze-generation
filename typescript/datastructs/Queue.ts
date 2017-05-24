@@ -4,7 +4,7 @@ export class Queue<T> implements Collection<T> {
   private readonly collection:T[];
 
   public constructor() {
-    this.collection = []as T[];
+    this.collection = [] as T[];
   }
 
   public put(value:T):void {

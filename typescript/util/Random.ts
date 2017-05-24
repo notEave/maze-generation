@@ -1,5 +1,6 @@
-import { NaNError } from '../error/NaNError';
 import { Time } from './Time';
+
+import { double, int } from '../datastructs/Cast';
 
 export class Random {
   private static readonly SEED_MULTIPLIER:number = 100000.0;
@@ -7,10 +8,7 @@ export class Random {
   private readonly seed:number;
 
   constructor(seed:number) {
-    if(isNaN(seed))
-      throw new NaNError();
-
-    this.seed = seed;
+    this.seed = double(seed);
     }
 
     /**
@@ -27,7 +25,7 @@ export class Random {
     public static range(min:number, max:number):number {
       const INCLUSION_OFFSET:number = 1;
 
-      return Math.floor(Random.normal() * (max - min + INCLUSION_OFFSET) + min);
+      return Math.floor(Random.normal() * (double(max) - double(min) + INCLUSION_OFFSET) + double(min));
     }
 
     /**
@@ -38,18 +36,12 @@ export class Random {
       let numbers:number[];
       let i:number;
 
-      if(isNaN(size))
-        throw new NaNError();
-
-      if(size < MINIMUM_SIZE)
+      if(int(size) < MINIMUM_SIZE)
         throw new RangeError('Argument must be equal or larger than ' + MINIMUM_SIZE);
-
-      if(!Number.isInteger(size))
-        throw new RangeError('Argument must be an integer');
 
       numbers = [];
 
-      for(i = 0; i < size; i++)
+      for(i = 0; i < int(size); i++)
         numbers[i] = Random.normal();
 
       return numbers;
@@ -63,9 +55,6 @@ export class Random {
     }
 
     private static next(seed:number):number {
-      if(isNaN(seed))
-        throw new NaNError();
-
-      return Math.sin(seed);
+      return Math.sin(double(seed));
     }
 }

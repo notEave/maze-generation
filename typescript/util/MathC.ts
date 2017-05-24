@@ -1,4 +1,4 @@
-import { NaNError } from '../error/NaNError';
+import { double, int } from '../datastructs/Cast';
 
 export class MathC {
 
@@ -11,10 +11,7 @@ export class MathC {
     total = 0;
 
     numbers.forEach(v => {
-      if(isNaN(v))
-        throw new NaNError();
-      else
-        total += v;
+        total += double(v);
     });
 
     return total / numbers.length;
@@ -32,12 +29,9 @@ export class MathC {
     if(precision === undefined)
       precision = DEFAULT_PRECISION;
 
-    if(isNaN(precision))
-      throw new NaNError();
+    valueMult = Math.pow(PRECISION_MULT, int(precision));
 
-    valueMult = Math.pow(PRECISION_MULT, precision);
-
-    return Math.round(value * valueMult) / valueMult;
+    return Math.round(double(value) * valueMult) / valueMult;
   }
 
   public static floor(value:number, precision?:number):number {
@@ -49,12 +43,9 @@ export class MathC {
     if(precision === undefined)
       precision = DEFAULT_PRECISION;
 
-    if(isNaN(precision))
-      throw new NaNError();
+    valueMult = Math.pow(PRECISION_MULT, int(precision));
 
-    valueMult = Math.pow(PRECISION_MULT, precision);
-
-    return Math.floor(value * valueMult) / valueMult;
+    return Math.floor(double(value) * valueMult) / valueMult;
   }
 
   public static ceil(value:number, precision?:number):number {
@@ -66,11 +57,8 @@ export class MathC {
     if(precision === undefined)
       precision = DEFAULT_PRECISION;
 
-    if(isNaN(precision))
-      throw new NaNError();
+    valueMult = Math.pow(PRECISION_MULT, int(precision));
 
-    valueMult = Math.pow(PRECISION_MULT, precision);
-
-    return Math.ceil(value * valueMult) / valueMult;
+    return Math.ceil(double(value) * valueMult) / valueMult;
   }
 }

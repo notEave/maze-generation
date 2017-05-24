@@ -1,4 +1,4 @@
-import { NaNError } from '../error/NaNError';
+import { double } from '../datastructs/Cast';
 
 export class Geometry {
   static readonly TAU:number = Math.PI * 2;
@@ -6,18 +6,12 @@ export class Geometry {
   public static radians(degrees:number):number {
     const HALF_TURN:number = 180.0;
 
-    if(isNaN(degrees))
-      throw new NaNError();
-
-    return degrees * Math.PI / HALF_TURN;
+    return double(degrees) * Math.PI / HALF_TURN;
   }
 
   public static degrees(radians:number):number {
     const HALF_TURN:number = 180.0;
 
-    if(isNaN(radians))
-      throw new NaNError();
-
-    return radians * HALF_TURN / Math.PI;
+    return double(radians) * HALF_TURN / Math.PI;
   }
 }

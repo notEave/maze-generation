@@ -1,7 +1,7 @@
 // DEPRECATED
 
 import { NotAnIntegerError } from '../error/number/NotAnIntegerError';
-import { NumberC } from './NumberC';
+import { NumberC } from './qNumberC';
 
 export class Integer extends NumberC {
 

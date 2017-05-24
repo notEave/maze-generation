@@ -1,24 +1,24 @@
-import { Integer } from '../datatypes/Integer';
+import { int } from '../datastructs/Cast';
 
 export class Cell {
 
   // STATIC
 
   // INSTANCE
-  private readonly x:Integer;
-  private readonly y:Integer;
+  private readonly x:number;
+  private readonly y:number;
   private previous:Cell;
 
   // CONSTRUCTOR
-  public constructor(x:Integer, y:Integer) {
-    this.x = x;
-    this.y = y;
+  public constructor(x:number, y:number) {
+    this.x = int(x);
+    this.y = int(y);
   }
 
   // PUBLIC
   public equals(c:Cell):boolean {
-    return this.x.get()  === c.x.get() &&
-           this.y.get()  === c.y.get() &&
+    return this.x  === c.x &&
+           this.y  === c.y &&
            this.previous === c.previous;
   }
 
@@ -34,11 +34,11 @@ export class Cell {
   }
 
   // GETTER
-  public getX():Integer {
+  public getX():number {
     return this.x;
   }
 
-  public getY():Integer {
+  public getY():number {
     return this.y;
   }
 

@@ -1,5 +1,5 @@
-import { Integer } from '../datatypes/Integer';
-import { Stack } from '../data-structs/Stack';
+import { Stack } from '../datastructs/Stack';
+import { int } from '../datastructs/Cast';
 import { Maze } from './Maze';
 import { Cell } from './Cell';
 import { Direction } from './Direction';
@@ -10,7 +10,6 @@ export class MazePather {
   // STATIC
 
   // INSTANCE
-  // TODO add stack for traversed cells
   private readonly maze:Maze;
 
   private start:Cell;
@@ -79,12 +78,12 @@ export class MazePather {
   }
 
   private hasUndiscoveredNeigbor():boolean {
-    // Cell is undiscovered if it has no previous value set
-    return this.undiscoveredNeigborCount().get() > 0;
+    // Cell is undiscovered if its field previous is undefined
+    return this.undiscoveredNeigborCount() > 0;
   }
 
-  public undiscoveredNeigborCount():Integer {
-    return new Integer(this.undiscoveredNeighbors().length);
+  public undiscoveredNeigborCount():number {
+    return this.undiscoveredNeighbors().length;
   }
 
   public undiscoveredNeighbors():Cell[] {
@@ -93,9 +92,9 @@ export class MazePather {
   }
 
   // SETTER
-  public setStart(x:Integer, y:Integer):void {
-    const S_X:number = x.get(), S_Y:number = y.get();
-    const WIDTH:number = this.maze.getWidth().get(), HEIGHT = this.maze.getHeight().get();
+  public setStart(x:number, y:number):void {
+    const S_X:number = int(x), S_Y:number = int(y);
+    const WIDTH:number = this.maze.getWidth(), HEIGHT = this.maze.getHeight();
 
     if(S_X < 0 || S_Y < 0) {
       throw new Error();
