@@ -1,5 +1,5 @@
-javascript/
-bundle.js
+browser/bundle.js
+dist/
 
 documentation/
 node_modules/
