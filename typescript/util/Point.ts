@@ -1,4 +1,4 @@
-import { double } from '../datastructs/Cast';
+import { double } from '../datastruct/Cast';
 
 export class Point {
 

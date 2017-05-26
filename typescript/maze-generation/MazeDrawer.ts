@@ -1,6 +1,7 @@
 import { MazePather } from './MazePather';
 import { Cell } from './Cell';
-import { Stack } from '../datastructs/Stack';
+import { ICollection } from '../datastruct/ICollection';
+import { Stack } from '../datastruct/Stack';
 
 export class MazeDrawer {
   private readonly mazePather:MazePather;
@@ -12,7 +13,7 @@ export class MazeDrawer {
   }
 
   public drawPixels():void {
-    let stack:Stack<Cell> = this.mazePather.getStack().clone();
+    let stack:ICollection<Cell> = this.mazePather.getStack().clone();
     let totalSize:number = stack.length();
 
     let alpha:number = 0.5;
@@ -24,7 +25,7 @@ export class MazeDrawer {
       alpha = (50 - i) / 50;
       if(alpha < 0.5) alpha = 0.5;
       this.ctx.fillStyle = `rgba(44,136,152,${alpha})`;
-      let current:Cell = stack.pop();
+      let current:Cell = stack.take();
       this.ctx.fillRect(current.getX() * 5, current.getY() * 5, 5, 5);
     }
   }

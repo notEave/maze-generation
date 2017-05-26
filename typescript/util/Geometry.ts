@@ -1,4 +1,4 @@
-import { double } from '../datastructs/Cast';
+import { double } from '../datastruct/Cast';
 
 export class Geometry {
   static readonly TAU:number = Math.PI * 2;

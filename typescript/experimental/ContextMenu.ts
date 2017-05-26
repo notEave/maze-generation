@@ -1,8 +1,8 @@
-import { List } from '../datastructs/List';
+import { List } from '../datastruct/List';
 import { Canvas } from '../browser/Canvas';
 import { Point } from '../util/Point';
 import { Mouse } from '../browser/Mouse';
-import { float } from '../datastructs/Cast';
+import { float } from '../datastruct/Cast';
 
 import { Option } from './Option';
 

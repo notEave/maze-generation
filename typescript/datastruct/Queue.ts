@@ -7,12 +7,11 @@ export class Queue<T> extends Collection<T> {
     super();
   }
 
-
   public peek():T {
     return super.first();
   }
 
-  public pop():T {
+  public take():T {
     const value:T = this.peek();
     this.collection.shift();
     return value;

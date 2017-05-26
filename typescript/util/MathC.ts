@@ -1,4 +1,4 @@
-import { double, int } from '../datastructs/Cast';
+import { double, int } from '../datastruct/Cast';
 
 export class MathC {
 

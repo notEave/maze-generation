@@ -1,4 +1,4 @@
-import { int } from '../datastructs/Cast';
+import { int } from '../datastruct/Cast';
 
 export class Cell {
 

@@ -15,7 +15,7 @@ export abstract class Collection<T> implements ICollection<T> {
     throw new Error('Unsupported functionality');
   }
 
-  public pop(index?:number):T {
+  public take(index?:number):T {
     throw new Error('Unsupported functionality');
   }
 
@@ -37,6 +37,20 @@ export abstract class Collection<T> implements ICollection<T> {
 
   public putAll(arr:T[]):void {
     arr.forEach(v => this.put(v));
+  }
+
+  public toString():string {
+    let str:string = '[';
+
+    this.toArray().forEach((v:T, i:number) => {
+      if(i === this.length() - 1) {
+        str = str.concat(v.toString());
+      } else {
+        str = str.concat(`${v.toString()}, `);
+      }
+    });
+    str = str.concat(']');
+    return str;
   }
 
   protected first():T {

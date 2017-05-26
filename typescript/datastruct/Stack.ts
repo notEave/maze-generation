@@ -11,7 +11,7 @@ export class Stack<T> extends Collection<T> {
     return super.last();
   }
 
-  public pop():T {
+  public take():T {
     const value:T = this.peek();
     this.collection.pop();
     return value;

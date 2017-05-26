@@ -1,5 +1,5 @@
-import { Stack } from '../datastructs/Stack';
-import { int } from '../datastructs/Cast';
+import { Stack } from '../datastruct/Stack';
+import { int } from '../datastruct/Cast';
 import { Maze } from './Maze';
 import { Cell } from './Cell';
 import { Direction } from './Direction';

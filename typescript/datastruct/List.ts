@@ -11,7 +11,7 @@ export class List<T> extends Collection<T> {
     return super.index(index);
   }
 
-  public pop(index:number):T {
+  public take(index:number):T {
     const value:T = this.peek(index);
     this.collection.splice(index, 1);
     return value;

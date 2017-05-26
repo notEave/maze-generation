@@ -1,6 +1,6 @@
 import { Time } from './Time';
 
-import { double, int } from '../datastructs/Cast';
+import { double, int } from '../datastruct/Cast';
 
 export class Random {
   private static readonly SEED_MULTIPLIER:number = 100000.0;

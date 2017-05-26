@@ -1,6 +1,6 @@
 import { StringC }              from './StringC';
 import { IllegalArgumentError } from '../error/IllegalArgumentError';
-import { normal }               from '../datastructs/Cast';
+import { normal }               from '../datastruct/Cast';
 
 import { ColorChannel }         from './ColorChannel';
 

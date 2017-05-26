@@ -2,7 +2,7 @@
     "compilerOptions": {
         "module": "commonjs",
         "target": "es6",
-        "outDir": "javascript",
+        "outDir": "./dist",
         "newLine": "lf",
         "charset": "utf8",
         "removeComments": true,
