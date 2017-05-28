@@ -6,9 +6,20 @@
   <title>Maze Generation</title>
 </head>
 <body>
+  <h1>Maze Generation</h1>
   <div>
-      <h1>Maze Generation</h1>
-      <canvas id="maze-generation"></canvas>
+    <canvas id="maze-generation" />
   </div>
+  <p>
+    Ohjelma luo satunnaisia labyrintteja, tämä aloitetaan ensin lisäämällä
+    labyrintille alkupiste x,y. Sen jälkeen alkupisteelle valitaan viereinein
+    vapaa solu. Solu on vapaa jos labyrintin luonnin aikana siinä ei olla
+    vielä käyty. Tätä toistetaan niin kauan kunnes saavutaan umpikujaan.
+    Umpikujasta palataan yksi solu taaksepäin, kunnes saavutaan sellaiselle
+    solulle jolla on vapaita naapureita. Labyrintti jatkaa vapaaseen naapuriin
+    kunnes se saapuu jälleen umpikujaan. Tätä toistetaan kunnes kaikki
+    labyrintissa olevat solut on käyty läpi, jolloin labyrintti on valmis.
+    <a href="https://en.wikipedia.org/wiki/Maze_generation_algorithm#Depth-first_search">Wikipedia</a>
+  </p>
   <script src="bundle.js"></script>
 </body>

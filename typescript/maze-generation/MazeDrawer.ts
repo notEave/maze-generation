@@ -1,32 +1,34 @@
 import { MazePather } from './MazePather';
 import { Cell } from './Cell';
 import { ICollection } from '../datastruct/ICollection';
-import { Stack } from '../datastruct/Stack';
+import { MazePatherManager } from './MazePatherManager';
 
 export class MazeDrawer {
-  private readonly mazePather:MazePather;
+  private readonly manager:MazePatherManager;
   private readonly ctx:CanvasRenderingContext2D;
 
-  public constructor(mazePather:MazePather, ctx:CanvasRenderingContext2D) {
-    this.mazePather = mazePather;
+  public constructor(manager:MazePatherManager, ctx:CanvasRenderingContext2D) {
+    this.manager = manager;
     this.ctx = ctx;
   }
 
   public drawPixels():void {
-    let stack:ICollection<Cell> = this.mazePather.getStack().clone();
-    let totalSize:number = stack.length();
 
-    let alpha:number = 0.5;
-    let i:number = 0;
-    this.ctx.fillStyle = `rgba(44,136,152,${alpha})`;
+    // bootstrap
+    let alpha:number = 0.7;
+    let fillStyles:string[] = [
+      `rgba(152, 147, 44, ${alpha})`,
+      `rgba(44, 152, 84, ${alpha})`,
+      `rgba(152, 44, 83, ${alpha})`,
+      `rgba(44, 103, 152, ${alpha})`,
+    ] as string[];
 
-    while(stack.length() > 0) {
-      i++;
-      alpha = (50 - i) / 50;
-      if(alpha < 0.5) alpha = 0.5;
-      this.ctx.fillStyle = `rgba(44,136,152,${alpha})`;
-      let current:Cell = stack.take();
-      this.ctx.fillRect(current.getX() * 5, current.getY() * 5, 5, 5);
+    let path:ICollection<Cell> = this.manager.mergePaths();
+    console.log(path.length());
+    for(let i:number = 0; i < 4; i++) {
+      this.ctx.fillStyle = fillStyles[i];
+      let current:Cell = path.toArray()[path.length() - 1 - i];
+      this.ctx.fillRect(current.getX() * 4, current.getY() * 4, 4, 4);
     }
   }
 }

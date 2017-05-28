@@ -1,8 +1,12 @@
-import { Stack } from '../datastruct/Stack';
+import { ICollection } from '../datastruct/ICollection';
+import { Queue } from '../datastruct/Queue';
+
 import { int } from '../datastruct/Cast';
-import { Maze } from './Maze';
+
 import { Cell } from './Cell';
+import { Maze } from './Maze';
 import { Direction } from './Direction';
+
 import { Random } from '../util/Random';
 
 export class MazePather {
@@ -14,15 +18,15 @@ export class MazePather {
 
   private start:Cell;
   private current:Cell;
-  private readonly stack:Stack<Cell>;
+  private readonly path:ICollection<Cell>;
 
   // CONSTRUCTOR
   public constructor(maze:Maze) {
     this.maze = maze;
-    this.stack = new Stack<Cell>();
+    this.path = new Queue<Cell>();
   }
-  // PUBLIC
 
+  // PUBLIC
   public iterate():void {
     if(this.current === undefined) {
       this.initiatePath();
@@ -41,6 +45,10 @@ export class MazePather {
     this.returnToLast();
   }
 
+  public cloneQueue():ICollection<Cell> {
+    return this.path.clone();
+  }
+
   // PROTECTED
   // PRIVATE
   private initiatePath():void {
@@ -49,7 +57,7 @@ export class MazePather {
     }
     this.current = this.start;
     this.current.setPrevious(this.start);
-    this.stack.put(this.current);
+    this.path.put(this.current);
   }
 
   private moveToRandomAvailableNeighbor():void {
@@ -69,12 +77,12 @@ export class MazePather {
 
     next.setPrevious(this.current);
     this.current = next;
-    this.stack.put(this.current);
+    this.path.put(this.current);
   }
 
   private returnToLast():void {
     this.current = this.current.getPrevious();
-    this.stack.put(this.current);
+    this.path.put(this.current);
   }
 
   private hasUndiscoveredNeigbor():boolean {
@@ -97,11 +105,11 @@ export class MazePather {
     const WIDTH:number = this.maze.getWidth(), HEIGHT = this.maze.getHeight();
 
     if(S_X < 0 || S_Y < 0) {
-      throw new Error();
+      throw new Error('Index out of bounds');
     }
 
     if(S_X >= WIDTH || S_Y >= HEIGHT) {
-      throw new Error();
+      throw new Error('Index out of bounds');
     }
 
     this.start = this.maze.getCell(x, y);
@@ -117,7 +125,4 @@ export class MazePather {
     return this.current;
   }
 
-  public getStack():Stack<Cell> {
-    return this.stack;
-  }
 }

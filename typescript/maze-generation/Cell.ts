@@ -48,4 +48,10 @@ export class Cell {
     }
     return this.previous;
   }
+
+  // OVERRIDE
+
+  public toString():string {
+    return `${this.x}, ${this.y}, prev: ${this.hasPrevious}`;
+  }
 }
