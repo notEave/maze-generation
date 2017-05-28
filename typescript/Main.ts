@@ -27,7 +27,7 @@ class Main {
     size = new Point(1000 - 1000 % pixelMult, 640 - 640 % pixelMult);
     Main.canvas = new Canvas(document.getElementsByTagName('canvas')[0], size);
     Main.pathManager = new MazePatherManager(pathMult, size.getX() / pixelMult, size.getY() / pixelMult);
-    Main.pathManager.setStart(int(size.getX() / pixelMult / 2), int(size.getY() / pixelMult / 2));
+    Main.pathManager.setStart(int(size.getX() / pixelMult - 1), int(size.getY() / pixelMult - 1));
     Main.mazeDrawer = new MazeDrawer(Main.pathManager, Main.canvas.getContext(), pixelMult);
     if(!Main.loopActive) {
       Main.loopActive = true

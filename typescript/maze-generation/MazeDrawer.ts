@@ -22,17 +22,24 @@ export class MazeDrawer {
     this.colors = new List<HSL>();
 
     for(let i:number = 0; i < this.paths; i++) {
-      this.colors.put(new HSL(Random.range(0, 360), 0.5, 0.5, 0.3));
+      this.colors.put(new HSL(Random.range(0, 360), Random.range(0, 100) * 100, 0.5, 0.3));
     }
   }
 
   public drawPixels():void {
-    let path:ICollection<Cell> = this.manager.mergePaths();
-
-    for(let i:number = 0; i < this.paths; i++) {
+    let path:ICollection<ICollection<Cell>> = this.manager.clonePaths();
+    for(let i:number = 0;i < path.length(); i++) {
       this.ctx.fillStyle = this.colors.peek(i).toString();
-      let current:Cell = path.toArray()[path.length() - 1 - i];
-      this.ctx.fillRect(current.getX() * this.pixelMult, current.getY() * this.pixelMult, this.pixelMult, this.pixelMult);
+      let current:Cell = path.peek(i).toArray()[path.peek(i).toArray().length - 1];
+      this.ctx.fillRect(current.getX() *this.pixelMult, current.getY() * this.pixelMult, this.pixelMult, this.pixelMult);
+
     }
+
+
+    //for(let i:number = 0; i < this.paths; i++) {
+      //this.ctx.fillStyle = this.colors.peek(i).toString();
+      // let current:Cell = path.toArray()[path.length() - 1 - i];
+      // this.ctx.fillRect(current.getX() * this.pixelMult, current.getY() * this.pixelMult, this.pixelMult, this.pixelMult);
+    // }
   }
 }

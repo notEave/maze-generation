@@ -3,7 +3,7 @@ import { MazePather } from './MazePather';
 import { List } from '../datastruct/List';
 import { Queue } from '../datastruct/Queue';
 import { int } from '../datastruct/Cast';
-
+import { Random } from '../util/Random';
 import { Cell } from './Cell';
 import { ICollection } from '../datastruct/ICollection';
 
@@ -12,8 +12,10 @@ export class MazePatherManager {
 
   public constructor(paths:number, sizeX:number, sizeY:number) {
     this.paths = new Queue<MazePather>();
+    let maze:Maze = new Maze(int(sizeX), int(sizeY));
     for(let i:number = 0; i < int(paths); i++) {
-      this.paths.put(new MazePather(new Maze(int(sizeX), int(sizeY))));
+      // this.paths.put(new MazePather(new Maze(int(sizeX), int(sizeY))));
+      this.paths.put(new MazePather(maze));
     }
   }
 
@@ -25,8 +27,12 @@ export class MazePatherManager {
     this.paths.put(mp);
   }
 
-  public setStart(x:number, y:number):void {
-    this.paths.toArray().forEach(v => v.setStart(x, y));
+  public setStart(maxX:number, maxY:number):void {
+    this.paths.toArray().forEach((v:MazePather) => {
+      const X:number = Random.range(0, maxX);
+      const Y:number = Random.range(0, maxY);
+      v.setStart(X, Y);
+    });
   }
 
   public iterate():void {
