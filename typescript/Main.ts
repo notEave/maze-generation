@@ -1,57 +1,45 @@
-import { RGB } from './color/RGB';
-import { HSL } from './color/HSL';
-import { Colors } from './color/Colors';
 import { Canvas } from './browser/Canvas';
-import { Maze } from './maze-generation/Maze';
-import { MazePather } from './maze-generation/MazePather';
-import { MazeDrawer } from './maze-generation/MazeDrawer';
 import { MazePatherManager } from './maze-generation/MazePatherManager';
-import { Point } from './util/Point';
+import { MazeDrawer } from './maze-generation/MazeDrawer';
+import { Point } from './util/Point';
+import { int } from './datastruct/Cast';
 
 class Main {
-  private static canv:Canvas;
-  private static maze:Maze;
-  private static mpmg:MazePatherManager;
-  private static MazeDraw:MazeDrawer;
+  private static mazeDrawer:MazeDrawer;
+  private static pathManager:MazePatherManager;
+  private static canvas:Canvas|null;
+  private static loopActive:boolean = false;
 
   public static main():void {
-    let mSize:Point = new Point(800, 640);
-    Main.canv = new Canvas(document.getElementsByTagName('canvas')[0], mSize);
-    Main.mpmg = new MazePatherManager();
-    Main.mpmg.addPather(new MazePather(new Maze(200, 160)));
-    Main.mpmg.addPather(new MazePather(new Maze(200, 160)));
-    Main.mpmg.addPather(new MazePather(new Maze(200, 160)));
-    Main.mpmg.addPather(new MazePather(new Maze(200, 160)));
-    Main.mpmg.setStart(100, 80);
+    document.getElementsByTagName('button')[0].addEventListener('click', Main.init);
+  }
 
-    Main.MazeDraw = new MazeDrawer(Main.mpmg, Main.canv.getContext());
-    requestAnimationFrame(Main.update);
+  public static init():void {
+    let size:Point;
+    let pixelMult:number;
+    let pathMult:number;
+    let pixMultElement:HTMLInputElement = <HTMLInputElement>document.getElementById('pixel_multiplier');
+    let pathMultElement:HTMLInputElement = <HTMLInputElement>document.getElementById('pather_multiplier');
+
+    pixelMult = Number.parseInt(pixMultElement.value);
+    pathMult = Number.parseInt(pathMultElement.value);
+
+    size = new Point(1000 - 1000 % pixelMult, 640 - 640 % pixelMult);
+    Main.canvas = new Canvas(document.getElementsByTagName('canvas')[0], size);
+    Main.pathManager = new MazePatherManager(pathMult, size.getX() / pixelMult, size.getY() / pixelMult);
+    Main.pathManager.setStart(int(size.getX() / pixelMult / 2), int(size.getY() / pixelMult / 2));
+    Main.mazeDrawer = new MazeDrawer(Main.pathManager, Main.canvas.getContext(), pixelMult);
+    if(!Main.loopActive) {
+      Main.loopActive = true
+      requestAnimationFrame(Main.update);
+    }
   }
 
   public static update():void {
-    // Main.canv.clear();
-    Main.mpmg.iterate();
-    Main.MazeDraw.drawPixels();
+    Main.pathManager.iterate();
+    Main.mazeDrawer.drawPixels();
     requestAnimationFrame(Main.update);
   }
-
-  /*
-  public static main():void {
-    for(let i = 0; i < 3; i++) {
-      for(let n = 0; n < 256; n++) {
-        if(i === 0) {
-          console.log(new RGB(n,0,0).toString());
-          console.log(Colors.HSLtoRGB(Colors.RGBtoHSL(new RGB(n, 0, 0))).toString());
-        } else if(i === 1) {
-          console.log(new RGB(255, n, 0).toString());
-          console.log(Colors.HSLtoRGB(Colors.RGBtoHSL(new RGB(255, n, 0))).toString());
-        } else if(i === 2) {
-          console.log(new RGB(255,255,n).toString());
-          console.log(Colors.HSLtoRGB(Colors.RGBtoHSL(new RGB(255,255,n))).toString());
-        }
-      }
-    }
-  }*/
 }
 
 Main.main();

@@ -6,20 +6,32 @@
   <title>Maze Generation</title>
 </head>
 <body>
-  <h1>Maze Generation</h1>
   <div>
-    <canvas id="maze-generation" />
+    <h1>Maze Generation</h1>
+    <canvas id="maze-generation"></canvas>
+    <form>
+      <fieldset>
+        <legend>Valinnat</legend>
+        <p>
+          <button type="button">Käynnistä</button>
+          <label for="pather_multiplier">Polkujen määrä</label>
+          <input id="pather_multiplier" type="number" value="1" min="1" max="10"/>
+          <label for="pixel_multiplier">Pikselikoko</label>
+          <input id="pixel_multiplier" type="number" value="10" min="1" max="20" />
+        </p>
+      </fieldset>
+    </form>
+    <p>
+      Ohjelma luo satunnaisia labyrintteja, tämä aloitetaan ensin lisäämällä
+      labyrintille alkupiste x,y. Sen jälkeen alkupisteelle valitaan viereinein
+      vapaa solu. Solu on vapaa jos labyrintin luonnin aikana siinä ei olla
+      vielä käyty. Tätä toistetaan niin kauan kunnes saavutaan umpikujaan.
+      Umpikujasta palataan yksi solu taaksepäin, kunnes saavutaan sellaiselle
+      solulle jolla on vapaita naapureita. Labyrintti jatkaa vapaaseen naapuriin
+      kunnes se saapuu jälleen umpikujaan. Tätä toistetaan kunnes kaikki
+      labyrintissa olevat solut on käyty läpi, jolloin labyrintti on valmis.
+      <a href="https://en.wikipedia.org/wiki/Maze_generation_algorithm#Depth-first_search">Wikipedia</a>
+    </p>
   </div>
-  <p>
-    Ohjelma luo satunnaisia labyrintteja, tämä aloitetaan ensin lisäämällä
-    labyrintille alkupiste x,y. Sen jälkeen alkupisteelle valitaan viereinein
-    vapaa solu. Solu on vapaa jos labyrintin luonnin aikana siinä ei olla
-    vielä käyty. Tätä toistetaan niin kauan kunnes saavutaan umpikujaan.
-    Umpikujasta palataan yksi solu taaksepäin, kunnes saavutaan sellaiselle
-    solulle jolla on vapaita naapureita. Labyrintti jatkaa vapaaseen naapuriin
-    kunnes se saapuu jälleen umpikujaan. Tätä toistetaan kunnes kaikki
-    labyrintissa olevat solut on käyty läpi, jolloin labyrintti on valmis.
-    <a href="https://en.wikipedia.org/wiki/Maze_generation_algorithm#Depth-first_search">Wikipedia</a>
-  </p>
   <script src="bundle.js"></script>
 </body>
