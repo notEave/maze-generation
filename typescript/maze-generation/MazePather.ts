@@ -66,7 +66,7 @@ export class MazePather {
 
     let neighbors:Cell[] = this.undiscoveredNeighbors();
     while(true) {
-      direction = Random.range(0, neighbors.length - 1);
+      direction = Random.rangeInt(0, neighbors.length);
       if(neighbors[direction].equals(this.start)) {
         continue;
       }

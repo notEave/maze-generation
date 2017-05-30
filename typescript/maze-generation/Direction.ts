@@ -9,7 +9,7 @@ export enum Direction {
 
 export namespace Direction {
   export function random():Direction {
-    switch(Random.range(0, 3)) {
+    switch(Random.rangeInt(0, 4)) {
     case 0:
       return Direction.UP;
     case 1:

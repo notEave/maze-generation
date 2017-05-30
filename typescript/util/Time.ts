@@ -13,16 +13,16 @@ export class Time {
   private drawEnd:number;
 
   public constructor() {
-    this.start = Time.highResolutionTime();
+    this.start = Time.time();
     this.currentFrame = 0;
   }
 
-  public static highResolutionTime():number {
+  public static time():number {
     return window.performance.now();
   }
 
   public static timeSinceUnixEpoch():number {
-    return window.performance.timing.navigationStart + Time.highResolutionTime();
+    return window.performance.timing.navigationStart + Time.time();
   }
 
   public deltaFrame():number {
@@ -38,27 +38,27 @@ export class Time {
   }
 
   public setFrameStart():void {
-    this.frameStart = Time.highResolutionTime();
+    this.frameStart = Time.time();
   }
 
   public setFrameEnd():void {
-    this.frameEnd = Time.highResolutionTime();
+    this.frameEnd = Time.time();
   }
 
   public setPhysicsStart():void {
-    this.physicsStart = Time.highResolutionTime();
+    this.physicsStart = Time.time();
   }
 
   public setPhysicsEnd():void {
-    this.physicsEnd = Time.highResolutionTime();
+    this.physicsEnd = Time.time();
   }
 
   public setDrawStart():void {
-    this.drawStart = Time.highResolutionTime();
+    this.drawStart = Time.time();
   }
 
   public setDrawEnd():void {
-    this.drawEnd = Time.highResolutionTime();
+    this.drawEnd = Time.time();
   }
 
   public getCurrentFrame():number {
@@ -68,4 +68,8 @@ export class Time {
   public iterateCurrentFrame():void {
     this.currentFrame++;
   }
+}
+
+export function time():number {
+  return Time.time();
 }

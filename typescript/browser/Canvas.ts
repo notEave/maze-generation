@@ -1,9 +1,8 @@
 import { Point } from '../util/Point';
 import { Mouse } from './Mouse';
-import { IUpdatable } from '../util/IUpdatable';
 import { IllegalArgumentError } from '../error/IllegalArgumentError';
 
-export class Canvas implements IUpdatable {
+export class Canvas {
 
   // STATIC
   private static readonly UNDEFINED_HTML_ELEMENT_MSG:string = 'missing canvas element';
@@ -15,16 +14,13 @@ export class Canvas implements IUpdatable {
   private readonly context:CanvasRenderingContext2D;
 
   // CONSTRUCTOR
-  public constructor(canvas:HTMLCanvasElement, size:Point) {
+  public constructor(canvas:HTMLCanvasElement, x:number, y:number) {
     if(canvas === undefined)
       throw new IllegalArgumentError(Canvas.UNDEFINED_HTML_ELEMENT_MSG);
 
     this.canvas = canvas;
 
-    if(!Number.isInteger(size.getX()) || !Number.isInteger(size.getY()))
-      throw new IllegalArgumentError();
-
-    this.size = size;
+    this.size = new Point(x, y);
     this.updateCanvasSize();
 
     const ctx:CanvasRenderingContext2D|null = this.canvas.getContext('2d');
@@ -36,10 +32,6 @@ export class Canvas implements IUpdatable {
   }
 
   // PUBLIC
-  public update(deltaTime:number):void {
-    throw new Error();
-  }
-
   public updateCanvasSize():void {
     this.canvas.width = this.size.getX();
     this.canvas.height = this.size.getY();

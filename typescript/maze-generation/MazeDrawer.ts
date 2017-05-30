@@ -22,7 +22,7 @@ export class MazeDrawer {
     this.colors = new List<HSL>();
 
     for(let i:number = 0; i < this.paths; i++) {
-      this.colors.put(new HSL(Random.range(0, 360), Random.range(0, 100) * 100, 0.5, 0.3));
+      this.colors.put(new HSL(Random.rangeDouble(0, 360), Random.normal(), Random.rangeDouble(0.2, 0.8), 0.3));
     }
   }
 

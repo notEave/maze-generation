@@ -29,8 +29,8 @@ export class MazePatherManager {
 
   public setStart(maxX:number, maxY:number):void {
     this.paths.toArray().forEach((v:MazePather) => {
-      const X:number = Random.range(0, maxX);
-      const Y:number = Random.range(0, maxY);
+      const X:number = Random.rangeInt(0, maxX);
+      const Y:number = Random.rangeInt(0, maxY);
       v.setStart(X, Y);
     });
   }
