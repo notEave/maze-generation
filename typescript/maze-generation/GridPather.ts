@@ -30,11 +30,6 @@ export class GridPather {
       this.moveToNeighbor();
       return;
     }
-
-    if(this.path.length() === 1) {
-      return;
-    }
-    this.returnToLast();
   }
 
 

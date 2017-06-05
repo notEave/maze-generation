@@ -53,6 +53,10 @@ export abstract class Collection<T> implements ICollection<T> {
     return str;
   }
 
+  public isEmpty():boolean {
+    return this.length() === 0;
+  }
+
   protected first():T {
     return this.collection[0];
   }

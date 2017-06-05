@@ -7,4 +7,5 @@ export interface ICollection<T> {
   clone():ICollection<T>;
   toArray():T[];
   putAll(arr:T[]):void;
+  isEmpty():boolean;
 }

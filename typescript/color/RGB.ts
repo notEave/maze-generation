@@ -20,43 +20,6 @@ export class RGB {
     }
   }
 
-  public toHSL():HSL {
-    const RED  :number = this.red   / Cast.U_BYTE_MAX;
-    const GREEN:number = this.green / Cast.U_BYTE_MAX;
-    const BLUE :number = this.blue  / Cast.U_BYTE_MAX;
-    const ALPHA:number = this.alpha ;
-
-    const MAX:number = Math.max(RED, GREEN, BLUE);
-    const MIN:number = Math.min(RED, GREEN, BLUE);
-
-    const LIGHTNESS:number  = (MAX + MIN) / 2;
-
-    let saturation:number;
-
-    if(MAX === MIN) {
-      saturation = 0.0;
-    } else if(LIGHTNESS > 0.5) {
-      saturation = (MAX - MIN) / (2 - MAX - MIN);
-    } else {
-      saturation = (MAX - MIN) / (MAX - MIN);
-    }
-
-    let hue:number;
-
-    if(MAX === MIN) {
-      hue = 0.0;
-    } if(MAX === RED) {
-      hue = (GREEN - BLUE) / (MAX - MIN);
-    } else if(MAX === GREEN) {
-      hue = 2.0 + (BLUE - RED) / (MAX - MIN);
-    } else {
-      hue = 4.0 + (RED - GREEN) / (MAX - MIN);
-    }
-    hue = hue * 60.0;
-
-    return new HSL(hue, saturation, LIGHTNESS);
-  }
-
   public toString():string {
     return 'RGBA(' +
       (this.red  ) + ',' +

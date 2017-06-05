@@ -1,5 +1,6 @@
 import { Point } from '../util/Point';
 import { Mouse } from './Mouse';
+import { int } from '../datastruct/Cast';
 import { IllegalArgumentError } from '../error/IllegalArgumentError';
 
 export class Canvas {
@@ -46,10 +47,9 @@ export class Canvas {
   // PRIVATE
 
   // SETTER
-  public setSize(point:Point):void {
-    if(!Number.isInteger(point.getX()) || !Number.isInteger(point.getY()))
-      throw new IllegalArgumentError();
-    this.size = point;
+  public setSize(x:number, y:number):void {
+    this.size = new Point(int(x), int(y));
+    this.updateCanvasSize();
   }
 
   // GETTER
