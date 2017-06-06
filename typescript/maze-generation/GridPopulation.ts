@@ -12,13 +12,11 @@ export class GridPopulation {
 
   private readonly active:ICollection<Cell>;
   private readonly fullArea:ICollection<Cell>;
-  private supply:number;
 
   public constructor(grid:GridWrapper) {
     this.grid = grid;
     this.active = new List<Cell>();
     this.fullArea = new Stack<Cell>();
-    this.supply = 1.0;
   }
 
   public iterate():void {
@@ -26,12 +24,9 @@ export class GridPopulation {
       throw new Error('Path start not defined');
     }
 
-    if(this.freeNeighbors().length > 0 && this.supply >= 10) {
-      this.supply -= 10;
+    if(this.freeNeighbors().length > 0) {
       this.moveToNeighbor();
       this.cleanActiveList();
-    } else {
-      this.supply++;
     }
   }
 
@@ -39,11 +34,11 @@ export class GridPopulation {
     for(let i:number = 0; i < this.active.length(); i++) {
       if(this.grid.neighborsOf(this.active.peek(i)).every(c => c.isTraversed())) {
         this.active.take(i)
-        i--;
         /*
         * if we delete an element we back up by one
         * since the next elements index is now the current index
         */
+        i--;
       }
     }
   }
@@ -79,7 +74,6 @@ export class GridPopulation {
 
   private traverseTo(cell:Cell):void {
     cell.setTraversed(true);
-    this.supply += cell.getAttraction() * 12;
     this.active.put(cell);
     this.fullArea.put(cell);
   }
