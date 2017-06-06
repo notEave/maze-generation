@@ -20,7 +20,7 @@ export class MultiSimplex {
       throw new Error('Multisimplex is empty');
     }
 
-    const ARR:number[][] = this.coll.peek(0).noise2D(uint(sx), uint(sy));
+    const ARR:number[][] = this.coll.peek(0).positiveNoise2D(uint(sx), uint(sy));
 
     let noise:number[][];
     let y:number, x:number;
@@ -40,14 +40,16 @@ export class MultiSimplex {
 
     let x:number, y:number;
     let max:number = 0;
+    let min:number = Number.MAX_SAFE_INTEGER;
     for(y = 0; y < sy; y++) {
     for(x = 0; x < sx; x++) {
       if(ARR[x][y] > max) max = ARR[x][y];
+      if(ARR[x][y] < min) min = ARR[x][y];
     }}
 
     for(y = 0; y < sy; y++) {
     for(x = 0; x < sx; x++) {
-      ARR[x][y] /= max;
+      ARR[x][y] = (ARR[x][y] - min) / (max - min);
     }}
 
     return ARR;
@@ -58,7 +60,7 @@ export class MultiSimplex {
       throw new Error('Multisimplex is empty');
     }
 
-    const ARR:number[] = this.coll.peek(0).noise1D(uint(length));
+    const ARR:number[] = this.coll.peek(0).positiveNoise1D(uint(length));
 
     for(let i:number = 1; i < this.coll.length(); i++) {
       this.coll.peek(i).positiveNoise1D(uint(length)).forEach((v:number, j:number) => {
@@ -72,6 +74,12 @@ export class MultiSimplex {
   public normalNoise1D(length:number):number[] {
     const ARR:number[] = this.noise1D(length);
     const MAX:number = Math.max(...ARR);
-    return ARR.map(v => v /= MAX);
+    const MIN:number = Math.min(...ARR);
+
+    return ARR.map(v => v = (v - MIN) / (MAX - MIN));
+  }
+
+  public getSimplexWrappers():SimplexWrapper[] {
+    return this.coll.toArray();
   }
 }

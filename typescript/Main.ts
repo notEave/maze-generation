@@ -7,16 +7,48 @@ import { Cell } from './maze-generation/Cell';
 
 import { SimplexWrapper } from './noise/SimplexWrapper';
 import { MultiSimplex } from './noise/MultiSimplex';
+import { HSL } from './color/HSL';
+import { RGB } from './color/RGB';
+import { Colors } from './color/Colors';
+
+import { ImageBuffer } from './browser/ImageBuffer';
+
+const WIDTH  = 3000;
+const HEIGHT = 3000;
+const C = new Canvas(document.getElementsByTagName('canvas')[0], WIDTH, HEIGHT);
+const ib = new ImageBuffer(C.getContext().getImageData(0, 0, WIDTH, HEIGHT));
+const MSMP = new MultiSimplex();
+MSMP.addLayer(0, 0, 2.0, 0.4);
+MSMP.addLayer(0, 0, 1.0, 2);
+MSMP.addLayer(0, 0, 0.5, 10);
+MSMP.addLayer(0, 0, 0.25, 50);
+MSMP.addLayer(0, 0, 0.125, 250);
+let iter = 0;
+const ARR:number[][] = MSMP.normalNoise2D(WIDTH, HEIGHT);
 
 class Main {
   public static main():void {
-    let msmp:MultiSimplex = new MultiSimplex();
 
-    msmp.addLayer(0, 0, 0.1, 0.5);
-    msmp.addLayer(0, 0, 1.0, 0.5);
-    msmp.addLayer(0, 0, 1.0, 1);
-    console.log(msmp.noise1D(10));
-    console.log(msmp.noise2D(10, 10)));
+    requestAnimationFrame(Main.update);
+  }
+
+  public static update():void {
+    C.clear();
+    // MSMP.getSimplexWrappers()[0].moveOrigin(0.0005 * 5, 0);
+    // MSMP.getSimplexWrappers()[1].moveOrigin(0.0025 * 5, 0);
+    // MSMP.getSimplexWrappers()[2].moveOrigin(0.0125 * 5, 0);
+    // MSMP.getSimplexWrappers()[3].moveOrigin(0.0625 * 5, 0);
+    // MSMP.getSimplexWrappers()[4].moveOrigin(0.3125 * 5, 0);
+    for(let y:number = 0; y < HEIGHT; y++) {
+    for(let x:number = 0; x < WIDTH ; x++) {
+      // let rgb = new RGB(ARR[x][y] * 255, ARR[x][y] * 255, ARR[x][y] * 255);
+      let hsl = new HSL(ARR[x][y] * 330 + iter, 1.0, 0.5);
+      ib.writeBuff(Colors.HSLtoRGB(hsl), x, y);
+      // C.getContext().fillRect(x, y, 1, 1);
+    }}
+    iter++;
+    C.getContext().putImageData(ib.getBuffer(), 0, 0);
+    requestAnimationFrame(Main.update);
   }
 
   /*
