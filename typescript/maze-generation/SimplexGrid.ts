@@ -15,16 +15,16 @@ export class SimplexGrid extends AttractionGrid {
     for(_x = 0; _x < super.getWidth() ; _x++) {
       let curr:number = NOISE[_x][_y];
       super.getCell(_x, _y).setAttraction(curr);
-      /*
-      if(curr > 4/5) {
-        super.getCell(_x, _y).setAttraction(1.0);
-      } else if(curr > 3/5) {
-        super.getCell(_x, _y).setAttraction(3/4);
-      } else if(curr > 2/5) {
-        super.getCell(_x, _y).setAttraction(2/4);
-      } else if(curr > 1/5) {
-        super.getCell(_x, _y).setAttraction(1/4);
-      }*/
+
+      //if(curr > 4/5) {
+      // super.getCell(_x, _y).setAttraction(1.0);
+      //} else if(curr > 3/5) {
+      // super.getCell(_x, _y).setAttraction(3/4);
+      //} else if(curr > 2/5) {
+      // super.getCell(_x, _y).setAttraction(2/4);
+      //} else if(curr > 1/5) {
+      // super.getCell(_x, _y).setAttraction(1/4);
+      //}
     }}
   }
 }

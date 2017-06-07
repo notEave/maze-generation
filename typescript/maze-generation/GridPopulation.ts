@@ -67,7 +67,8 @@ export class GridPopulation {
 
     const MAX_ATTRACTION:Cell[] = FREE_NEIGHBORS.filter(c => c.getAttraction() === MAX);
 
-    const INDEX:number = Random.rangeInt(0, MAX_ATTRACTION.length);
+    // INDEX <- 0 === tail-first ;; array - 1 === head-first
+    const INDEX:number = 0;
 
     this.traverseTo(MAX_ATTRACTION[INDEX]);
   }

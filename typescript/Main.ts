@@ -14,20 +14,24 @@ import { Colors } from './color/Colors';
 import { ImageBuffer } from './browser/ImageBuffer';
 import { MathC } from './util/MathC';
 
-const WIDTH  = 100;
-const HEIGHT = 100;
+const WIDTH  = 800;
+const HEIGHT = 800;
 const C = new Canvas(document.getElementsByTagName('canvas')[0], WIDTH, HEIGHT);
 const ib = new ImageBuffer(C.getContext().getImageData(0, 0, WIDTH, HEIGHT));
 const MSMP = new MultiSimplex();
-MSMP.addLayer(0, 0, 2.0, 0.4);
-MSMP.addLayer(0, 0, 1.0, 2);
-MSMP.addLayer(0, 0, 0.5, 10);
-// MSMP.addLayer(0, 0, 0.25, 50);
-// MSMP.addLayer(0, 0, 0.125, 250);
+for(let i:number = 1; i <= 100; i++) {
+  MSMP.addLayer(1000, 1000, 1 / i, Math.pow(5, i / 2));
+}
+// MSMP.addLayer(0, 0, 1,   0.2);
+// MSMP.addLayer(0, 0, 1,   1.0);
+// MSMP.addLayer(0, 0, 1,   5.0);
+// MSMP.addLayer(0, 0, 1,  25.0);
+// MSMP.addLayer(0, 0, 1, 125.0);
+
 let attrgrid:SimplexGrid = new SimplexGrid(WIDTH, HEIGHT, MSMP);
 let gw:GridWrapper = new GridWrapper(attrgrid);
 let gp:GridPopulation = new GridPopulation(gw);
-
+let iter:number = 0;
 for(let y:number = 0; y < HEIGHT; y++) {
 for(let x:number = 0; x < WIDTH ; x++) {
   let cc:number = attrgrid.getCell(x, y).getAttraction() * 255;
@@ -37,7 +41,6 @@ for(let x:number = 0; x < WIDTH ; x++) {
 C.getContext().putImageData(ib.getBuffer(), 0, 0);
 
 gp.startFrom(0, 0);
-C.getContext().fillStyle = 'rgba(255, 0, 0, 0.5)';
 
 class Main {
   public static main():void {
@@ -45,9 +48,13 @@ class Main {
   }
 
   public static update():void {
-    let Cx:Cell = gp.getFullArea().peek();
-    C.getContext().fillRect(Cx.getX(), Cx.getY(), 1, 1);
-    gp.iterate();
+    for(let i:number = 0; i < 5; i++) {
+      let Cx:Cell = gp.getFullArea().peek();
+      C.getContext().fillStyle = new HSL(Cx.getAttraction() * 330, 1.0, 0.5, 1.0).toString();
+      C.getContext().fillRect(Cx.getX(), Cx.getY(), 1, 1);
+      gp.iterate();
+      iter += 0.01;
+    }
     requestAnimationFrame(Main.update);
   }
 }
