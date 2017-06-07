@@ -1,6 +1,7 @@
 import { ICollection } from '../datastruct/ICollection';
 import { List } from '../datastruct/List';
 import { uint } from '../datastruct/Cast';
+import { Vec2 } from '../space/Vec2';
 
 import { SimplexWrapper } from './SimplexWrapper';
 
@@ -11,8 +12,8 @@ export class MultiSimplex {
     this.coll = new List<SimplexWrapper>();
   }
 
-  public addLayer(originx:number, originy:number, amplitude:number, frequency:number):void {
-    this.coll.put(new SimplexWrapper(originx, originy, amplitude, frequency));
+  public addLayer(origin:Vec2, amplitude:number, frequency:number):void {
+    this.coll.put(new SimplexWrapper(origin, amplitude, frequency));
   }
 
   public noise2D(sx:number, sy:number):number[][] {

@@ -2,6 +2,10 @@ import { double, int } from '../datastruct/Cast';
 
 export class MathC {
 
+  public static inRange(min:number, max:number, v:number) {
+    return v >= min && v <= max;
+  }
+
   public static average(numbers:number[]): number {
     let total:number;
 

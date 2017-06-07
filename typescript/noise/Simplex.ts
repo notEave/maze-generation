@@ -1,4 +1,3 @@
-import { Point2 } from '../space/Point2';
 import { ubyte } from '../datastruct/Cast';
 
 export class Simplex {

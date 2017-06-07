@@ -55,7 +55,7 @@ export class Random {
   }
 
   /**
-  * sine?:number
+  * seed?:number
   * ;;
   * Return sine point of seed * Random.SINE_MULTIPLIER.
   * Optional seed, if undefined seed is taken from current time.
@@ -64,6 +64,6 @@ export class Random {
     if(seed === undefined) {
       seed = time() + Random.increment++;
     }
-    return Math.sin(double(seed)) * Random.SINE_MULTIPLIER;
+    return Math.sin(double(seed) * Random.SINE_MULTIPLIER);
   }
 }

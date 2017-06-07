@@ -1,4 +1,4 @@
-import { Point } from '../util/Point';
+import { Vec2 } from '../space/Vec2';
 import { MouseButton } from './MouseButton';
 
 export class Mouse {
@@ -10,8 +10,8 @@ export class Mouse {
   private readonly element:HTMLElement;
   private contextMenuEnabled:boolean;
 
-  private readonly localPosition:Point;
-  private readonly globalPosition:Point;
+  private readonly localPosition:Vec2;
+  private readonly globalPosition:Vec2;
 
   private leftDown:boolean;
   private middleDown:boolean;
@@ -24,8 +24,8 @@ export class Mouse {
     this.element = element;
     this.contextMenuEnabled = contextMenuEnabled;
 
-    this.localPosition  = new Point(Mouse.POSITION_DEFAULT, Mouse.POSITION_DEFAULT);
-    this.globalPosition = new Point(Mouse.POSITION_DEFAULT, Mouse.POSITION_DEFAULT);
+    this.localPosition  = new Vec2(Mouse.POSITION_DEFAULT, Mouse.POSITION_DEFAULT);
+    this.globalPosition = new Vec2(Mouse.POSITION_DEFAULT, Mouse.POSITION_DEFAULT);
 
     this.leftDown   = false;
     this.middleDown = false;
@@ -135,11 +135,11 @@ export class Mouse {
     return this.rightDown;
   }
 
-  public getLocalPosition():Point {
+  public getLocalPosition():Vec2 {
     return this.localPosition;
   }
 
-  public getGlobalPosition():Point {
+  public getGlobalPosition():Vec2 {
     return this.globalPosition;
   }
 }

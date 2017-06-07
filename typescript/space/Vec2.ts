@@ -1,29 +1,18 @@
 import { double } from '../datastruct/Cast';
 
-export class Point {
+export class Vec2 {
+  protected x:number;
+  protected y:number;
 
-  // STATIC
-
-  // INSTANCE
-  private x:number;
-  private y:number;
-
-  // CONSTRUCTOR
   public constructor(x:number, y:number) {
     this.x = double(x);
     this.y = double(y);
   }
 
-  // PUBLIC
-  public distance(p:Point):number {
+  public distance(p:Vec2):number {
     return Math.hypot(this.x - p.x, this.y - p.y);
   }
 
-  // PROTECTED
-
-  // PRIVATE
-
-  // SETTER
   public setX(x:number):void {
     this.x = double(x);
   }
@@ -32,7 +21,6 @@ export class Point {
     this.y = double(y);
   }
 
-  // GETTER
   public getX():number {
     return this.x;
   }

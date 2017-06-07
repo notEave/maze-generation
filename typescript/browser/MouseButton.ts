@@ -1,5 +1,5 @@
 export const enum MouseButton {
-  LEFT = 1,
+  LEFT   = 1,
   MIDDLE = 2,
-  RIGHT = 3
+  RIGHT  = 3
 }
