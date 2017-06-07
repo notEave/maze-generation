@@ -1,8 +1,23 @@
-import { GridWrapper } from './maze-generation/GridWrapper';
+import { SimplexVisualizationIO } from './applications/SimplexVisualizationIO';
+
+class Main {
+  public static main():void {
+    requestAnimationFrame(Main.update);
+  }
+
+  public static update():void {
+    console.log(new SimplexVisualizationIO().getSeed());
+    requestAnimationFrame(Main.update);
+  }
+}
+
+Main.main();
+
+/*import { GridWrapper } from './maze-generation/GridWrapper';
 import { SimplexGrid } from './maze-generation/SimplexGrid';
 import { GridPopulation } from './maze-generation/GridPopulation';
 
-import { Canvas } from './browser/Canvas';
+import { CanvasWrapper } from './browser/CanvasWrapper';
 import { Cell } from './maze-generation/Cell';
 
 import { SimplexWrapper } from './noise/SimplexWrapper';
@@ -19,7 +34,7 @@ import { Point2 } from './space/Point2';
 import { Random } from './util/Random';
 
 const SIZE:Point2  = new Point2(100, 100);
-const C = new Canvas(document.getElementsByTagName('canvas')[0]).setSize(SIZE);
+const C = new CanvasWrapper(document.getElementsByTagName('canvas')[0]).setSize(SIZE);
 
 const ib = new ImageDataWrapper(C.context().getImageData(0, 0, SIZE.getX(), SIZE.getY()));
 const MSMP = new MultiSimplex();
@@ -64,3 +79,4 @@ class Main {
 }
 
 Main.main();
+*/
