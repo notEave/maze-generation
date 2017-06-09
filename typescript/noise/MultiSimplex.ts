@@ -38,7 +38,7 @@ export class MultiSimplex {
 
   public normalNoise2D(sx:number, sy:number):number[][] {
     const ARR:number[][] = this.noise2D(sx, sy);
-
+    
     let x:number, y:number;
     let max:number = 0;
     let min:number = Number.MAX_SAFE_INTEGER;
