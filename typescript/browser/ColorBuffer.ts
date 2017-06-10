@@ -1,14 +1,14 @@
 import { RGB } from  '../color/RGB';
 import { uint } from '../datastruct/Cast';
 
-export class ImageDataWrapper {
+export class ColorBuffer {
   private readonly img:ImageData;
 
   public constructor(img:ImageData) {
     this.img = img;
   }
 
-  public writePixel(x:number, y:number, color:RGB):void {
+  public writePx(x:number, y:number, color:RGB):void {
     const OFFSET:number = 4 * this.img.width * y + x * 4;
 
     this.img.data[OFFSET    ] =      color.getRed  ()       ;
@@ -17,7 +17,7 @@ export class ImageDataWrapper {
     this.img.data[OFFSET + 3] = uint(color.getAlpha() * 255);
   }
 
-  public readPixel(x:number, y:number):RGB {
+  public readPx(x:number, y:number):RGB {
     const OFFSET:number = 4 * this.img.width * y + 4 * x;
 
     const R:number = this.img.data[OFFSET    ];

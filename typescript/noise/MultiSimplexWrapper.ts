@@ -22,8 +22,9 @@ export class MultiSimplexWrapper {
     for(let i:number = 1; i <= this.layers; i++) {
       this.multiSimplex.addLayer(
         new Vec2(
-          Random.rangeDouble(Number.MIN_SAFE_INTEGER, Number.MAX_SAFE_INTEGER),
-          Random.rangeDouble(Number.MIN_SAFE_INTEGER, Number.MAX_SAFE_INTEGER)
+          // TODO what is the max allowable range for simplex origin?
+          Random.rangeDouble(-100, 100),
+          Random.rangeDouble(-100, 100)
         ),
         1 / i,
         Math.pow(5, i / 2)

@@ -1,19 +1,13 @@
 import { SimplexVisualization } from './applications/SimplexVisualization';
-import { CanvasWrapper } from './browser/CanvasWrapper';
 
-let t = new SimplexVisualization(new CanvasWrapper(document.getElementsByTagName('canvas')[0]));
 class Main {
   public static main():void {
-    //requestAnimationFrame(Main.update);
-  }
-
-  public static update():void {
-
-    //requestAnimationFrame(Main.update);
+    new SimplexVisualization(document.getElementsByTagName('canvas')[0]);
   }
 }
 
 Main.main();
+
 /*
 import { GridWrapper } from './maze-generation/GridWrapper';
 import { SimplexGrid } from './maze-generation/SimplexGrid';

@@ -1,4 +1,4 @@
-import { SimplexVisualizationColor } from './SimplexVisualizationColor';
+import { SimplexDrawStyle } from './SimplexDrawStyle';
 import { SimplexVisualization } from './SimplexVisualization';
 
 export class SimplexVisualizationIO {
@@ -42,11 +42,13 @@ export class SimplexVisualizationIO {
     return Number.parseInt(this.noiseLayerAmt.value, 10) | 0;
   }
 
-  public getColorScheme():SimplexVisualizationColor {
+  public getColorScheme():SimplexDrawStyle {
     if(this.colorScheme.value === 'iteration-based') {
-      return SimplexVisualizationColor.ITERATION;
+      return SimplexDrawStyle.ITERATION;
+    } else if(this.colorScheme.value === 'noisemap-based'){
+      return SimplexDrawStyle.NOISEMAP;
     } else {
-      return SimplexVisualizationColor.NOISEMAP;
+      return SimplexDrawStyle.EDGE;
     }
   }
 }
