@@ -20,7 +20,6 @@ export class SimplexDraw {
   private          style    :SimplexDrawStyle;
   private          drawCalls:number;
   private          noiseBuffer:ColorBuffer;
-  private          pathBuffer :ColorBuffer;
 
   public constructor(canvas:HTMLCanvasElement) {
     this.canvWrap  = new CanvasWrapper(canvas);
@@ -33,10 +32,6 @@ export class SimplexDraw {
     this.setResolution(resolution);
 
     this.noiseBuffer = new ColorBuffer(
-      this.canvWrap.context().getImageData(0, 0, resolution, resolution)
-    );
-
-    this.pathBuffer = new ColorBuffer(
       this.canvWrap.context().getImageData(0, 0, resolution, resolution)
     );
 
@@ -74,21 +69,25 @@ export class SimplexDraw {
   }
 
   public iterationDraw():void {
-    // if(this.drawCalls === 0) {
-    //   this.drawNoiseBuffer();
-    // }
-    const color    :HSL  = new HSL(this.drawCalls * 0.05, 1.0, 0.5);
     const LAST_CELL:Cell = this.logic.getPopulation().getFullArea().peek();
+    const color    :HSL  = new HSL(this.drawCalls * 0.05, 1.0, 0.5);
 
     this.noiseBuffer.writePx(
       LAST_CELL.getX(), LAST_CELL.getY(), Colors.HSLtoRGB(color)
     );
 
-    this.canvWrap.context().putImageData(this.noiseBuffer.getImageData(), 0, 0);
+    this.drawNoiseBuffer();
   }
 
   public noiseMapDraw():void {
-    throw new Error();
+    const LAST_CELL:Cell = this.logic.getPopulation().getFullArea().peek();
+    const color:HSL = new HSL(LAST_CELL.getAttraction() * 330, 1.0, 0.5);
+
+    this.noiseBuffer.writePx(
+      LAST_CELL.getX(), LAST_CELL.getY(), Colors.HSLtoRGB(color)
+    );
+
+    this.drawNoiseBuffer();
   }
 
   public fillNoiseBuffer():void {
