@@ -1,5 +1,7 @@
 import { CanvasWrapper } from '../browser/CanvasWrapper';
 
+import { ICollection } from '../datastruct/ICollection';
+
 import { SimplexLogic } from './SimplexLogic';
 import { SimplexDrawStyle } from './SimplexDrawStyle';
 
@@ -61,10 +63,9 @@ export class SimplexDraw {
       this.noiseMapDraw();
       break;
     case SimplexDrawStyle.EDGE:
-      throw new Error();
-      // break;
+      this.edgeDraw();
+      break;
     }
-
     this.drawCalls++;
   }
 
@@ -87,6 +88,21 @@ export class SimplexDraw {
       LAST_CELL.getX(), LAST_CELL.getY(), Colors.HSLtoRGB(color)
     );
 
+    this.drawNoiseBuffer();
+  }
+
+  public edgeDraw():void {
+    const ACTIVE:ICollection<Cell> = this.logic.getPopulation().getActive();
+
+    //  we need to fill the noisebuffer to clear last frames activity
+    this.fillNoiseBuffer();
+    ACTIVE.toArray()
+      .forEach(v => this.noiseBuffer.writePx(
+        v.getX(),
+        v.getY(),
+        Colors.HSLtoRGB(new HSL(v.getAttraction() * 300, 1.0, 0.5))
+      )
+    );
     this.drawNoiseBuffer();
   }
 

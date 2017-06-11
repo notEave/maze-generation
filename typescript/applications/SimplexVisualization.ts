@@ -8,6 +8,8 @@ import { Cell } from '../maze-generation/Cell';
 import { Point2 } from '../space/Point2';
 
 export class SimplexVisualization {
+  private static readonly taskBudget = 1000 / 30; // 30 fps
+
   private readonly sio      :SimplexVisualizationIO;
   private          logic    :SimplexLogic;
   private          drawer   :SimplexDraw;
@@ -39,8 +41,11 @@ export class SimplexVisualization {
   }
 
   public cycle(self:SimplexVisualization, time:number):void {
-    self.draw();
-    self.update();
+    do {
+      self.draw();
+      self.update();
+    } while(performance.now() - time < SimplexVisualization.taskBudget);
+
     self.requestID = requestAnimationFrame(
       function(time:number):void { self.cycle(self, time); }
     );

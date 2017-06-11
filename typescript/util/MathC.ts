@@ -33,7 +33,7 @@ export class MathC {
     if(precision === undefined)
       precision = DEFAULT_PRECISION;
 
-    valueMult = Math.pow(PRECISION_MULT, int(precision));
+    valueMult = Math.pow(PRECISION_MULT, precision);
 
     return Math.round(double(value) * valueMult) / valueMult;
   }

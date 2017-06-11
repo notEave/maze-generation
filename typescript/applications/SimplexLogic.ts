@@ -19,7 +19,7 @@ export class SimplexLogic {
       new AttractionGrid(resolution, resolution)
     );
 
-    this.simplex = new MultiSimplexWrapper(resolution, noiseAmt);
+    this.simplex = new MultiSimplexWrapper(resolution, noiseAmt, compression);
 
     const GRID:AttractionGrid = this.gridWrapper.getGrid();
     const ATTR:number[][] = this.simplex.normalNoise2D();
