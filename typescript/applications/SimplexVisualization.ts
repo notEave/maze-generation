@@ -8,7 +8,11 @@ import { Cell } from '../maze-generation/Cell';
 import { Point2 } from '../space/Point2';
 
 export class SimplexVisualization {
-  private static readonly taskBudget = 1000 / 30; // 30 fps
+  private static readonly   FRAME_BUDGET = 1000 /  30; // 30 fps 33.333ms
+  private static readonly  RENDER_BUDGET = 1000 / 200; // 5 ms
+  private static readonly PHYSICS_BUDGET = (
+    SimplexVisualization.FRAME_BUDGET - SimplexVisualization.RENDER_BUDGET
+  );
 
   private readonly sio      :SimplexVisualizationIO;
   private          logic    :SimplexLogic;
@@ -42,13 +46,14 @@ export class SimplexVisualization {
 
   public cycle(self:SimplexVisualization, time:number):void {
     do {
-      self.draw();
       self.update();
-    } while(performance.now() - time < SimplexVisualization.taskBudget);
+    } while(performance.now() - time < SimplexVisualization.PHYSICS_BUDGET);
 
-    self.requestID = requestAnimationFrame(
-      function(time:number):void { self.cycle(self, time); }
-    );
+    self.draw();
+
+    self.requestID = requestAnimationFrame(function(time:number):void {
+      self.cycle(self, time);
+    });
   }
 
   public stop():void {

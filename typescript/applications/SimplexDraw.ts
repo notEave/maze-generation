@@ -70,23 +70,29 @@ export class SimplexDraw {
   }
 
   public iterationDraw():void {
-    const LAST_CELL:Cell = this.logic.getPopulation().getFullArea().peek();
-    const color    :HSL  = new HSL(this.drawCalls * 0.05, 1.0, 0.5);
-
-    this.noiseBuffer.writePx(
-      LAST_CELL.getX(), LAST_CELL.getY(), Colors.HSLtoRGB(color)
-    );
-
+    const DRAWABLE:ICollection<Cell> = this.logic.getPopulation().getFullArea();
+    const ELEMENTS:number = DRAWABLE.length();
+    this.fillNoiseBuffer();
+    DRAWABLE.toArray()
+      .forEach((v, i) => this.noiseBuffer.writePx(
+        v.getX(),
+        v.getY(),
+        Colors.HSLtoRGB(new HSL(i / (ELEMENTS - 1) * 270, 1.0, 0.5))
+    ));
     this.drawNoiseBuffer();
   }
 
   public noiseMapDraw():void {
-    const LAST_CELL:Cell = this.logic.getPopulation().getFullArea().peek();
-    const color:HSL = new HSL(LAST_CELL.getAttraction() * 330, 1.0, 0.5);
+    const DRAWABLE:ICollection<Cell> = this.logic.getPopulation().getFullArea();
 
-    this.noiseBuffer.writePx(
-      LAST_CELL.getX(), LAST_CELL.getY(), Colors.HSLtoRGB(color)
-    );
+    this.fillNoiseBuffer();
+
+    DRAWABLE.toArray()
+      .forEach(v => this.noiseBuffer.writePx(
+        v.getX(),
+        v.getY(),
+        Colors.HSLtoRGB(new HSL(Math.abs(v.getAttraction() * 270), 1.0, 0.5))
+    ));
 
     this.drawNoiseBuffer();
   }
@@ -100,7 +106,7 @@ export class SimplexDraw {
       .forEach(v => this.noiseBuffer.writePx(
         v.getX(),
         v.getY(),
-        Colors.HSLtoRGB(new HSL(v.getAttraction() * 300, 1.0, 0.5))
+        Colors.HSLtoRGB(new HSL(v.getAttraction() * 270, 1.0, 0.5))
       )
     );
     this.drawNoiseBuffer();
